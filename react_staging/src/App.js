@@ -31,15 +31,43 @@ class App extends Component {
   };
 
   // 更新勾选状态
-  updateTodo = (id,done) => {
+  updateTodo = (id, done) => {
     // 获取状态中的todos
-    const {todos}=this.state
-    const newTodos = todos.map((todoObj)=>{
-      if(todoObj.id === id) return {...todoObj,done:done}
-      else return todoObj
-    })
+    const { todos } = this.state;
+    const newTodos = todos.map((todoObj) => {
+      if (todoObj.id === id) return { ...todoObj, done: done };
+      else return todoObj;
+    });
 
-    this.setState({todos:newTodos})
+    this.setState({ todos: newTodos });
+  };
+
+  deleteTodo = (id) => {
+    console.log(id, "App");
+    const { todos } = this.state;
+    const newTodos = todos.filter((todoObj) => {
+      return todoObj.id !== id;
+    });
+    this.setState({ todos: newTodos });
+  };
+
+  // 全选
+  checkAllTodo = (done) => {
+    const { todos } = this.state;
+    const newTodos = todos.map((todoObj) => {
+      return { ...todoObj, done };
+    });
+    this.setState({ todos: newTodos });
+  };
+
+  // 清除所有已完成的
+  clearAllDone = () => {
+    const { todos } = this.state;
+    // 过滤数据
+    const undoneTodos = todos.filter((todoObj)=>{
+      return !todoObj.done 
+    })
+    this.setState({todos:undoneTodos})
   };
 
   render() {
@@ -48,8 +76,12 @@ class App extends Component {
       <div className="todo-container">
         <div className="todo-wrap">
           <Header addTodo={this.addTodo} />
-          <List updateTodo={this.updateTodo} todos={todos} />
-          <Footer  />
+          <List
+            updateTodo={this.updateTodo}
+            todos={todos}
+            deleteTodo={this.deleteTodo}
+          />
+          <Footer todos={todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
         </div>
       </div>
     );
