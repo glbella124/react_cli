@@ -120,6 +120,26 @@ Preview -- 对响应体解析之后
 npm init --yes
 ```
 
+## 7. 自动重启服务 nodemon
+
+```
+npm i -g nodemon
+```
+
+## 8. IE缓存问题
+
+IE浏览器会对AJAX请求结果做缓存 - 不能及时获取最新数据
+
+## 9. bootcdn
+
+https://www.bootcdn.cn/
+
+jquery库
+
+## 10. axios
+
+前端热门AJAX工具库, vue，react推荐的AJAX请求工具包
+
 
 
 

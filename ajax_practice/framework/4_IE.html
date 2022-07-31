@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IE 缓存</title>
+    <style>
+      #result {
+        width: 400px;
+        height: 300px;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" value="点击发送请求" />
+    <div id="result"></div>
+    <script>
+      const btn = document.getElementsByTagName("input")[0]
+      btn.addEventListener("click", () => {
+        const xhr = new XMLHttpRequest()
+        // AJAX IE缓存解决方法 - 这样写IE浏览器不走缓存
+        xhr.open("GET","http://127.0.0.1:8000/ie?t=" + Date.now())
+        xhr.send()
+        xhr.onreadystatechange = ()=>{
+            if(xhr.readyState === 4){
+                if(xhr.status >= 200 && xhr.status < 300){
+                    result.innerHTML = xhr.response
+                }
+            }
+        }
+      });
+    </script>
+  </body>
+</html>

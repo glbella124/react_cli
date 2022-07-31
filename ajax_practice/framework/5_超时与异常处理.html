@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX - 网络超时与异常处理</title>
+    <style>
+      #result {
+        width: 400px;
+        height: 300px;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="button" value="点击发送请求"/>
+    <div id="result"></div>
+    <script>
+      const btn = document.getElementsByTagName("input")[0];
+      const result = document.getElementById("result")
+      btn.addEventListener("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.timeout = 2000
+        xhr.open("GET", "http://127.0.0.1:8000/delay");
+        // 超时回调
+        xhr.ontimeout = () =>{
+            alert("网络异常, 请稍后重试!")
+        }
+        // 网络异常回调
+        xhr.onerror = () =>{
+            alert("你的网络似乎出了一些问题!")
+        }
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              result.innerHTML = xhr.response;
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>

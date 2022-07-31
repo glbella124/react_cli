@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX POST请求</title>
+    <style>
+      #result {
+        width: 400px;
+        height: 300px;
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="result"></div>
+    <script>
+      const result = document.getElementById("result");
+      result.addEventListener("mouseover", () => {
+        // 创建对象
+        const xhr = new XMLHttpRequest();
+        // 初始化 设置类型与url
+        xhr.open("post", "http://127.0.0.1:8000/server");
+        // 设置请求头
+        // Content-Type -- 设置请求体内容的类型
+        // xhr.setRequestHeader(
+        //   "Content-Type",
+        //   "application/x-www-form-urlencoded"
+        // );
+        // 自定义会启动安全机制,需要在server端设置
+        xhr.setRequestHeader("name","antiguigu")
+
+        // 一般会把身份校验的信息放在头信息里面，传递给服务器
+        // 服务器提取参数
+
+        // 发送
+        // xhr.send("a=100&b=200&c=300")
+        xhr.send("a:100&b:200&c:300");
+        // 事件绑定
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              result.innerHTML = xhr.response;
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
