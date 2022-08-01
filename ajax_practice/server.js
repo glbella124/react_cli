@@ -64,6 +64,7 @@ app.get("/delay",(request, response)=>{
 // jquery
 app.all("/jquery-server",(request, response)=>{
     // 设置响应头，设置允许跨域
+    // * 通配所有网页
     response.setHeader("Access-Control-Allow-Origin","*")
     response.setHeader("Access-Control-Allow-Headers","*")
     const data = {name:"Express"}
@@ -84,6 +85,53 @@ app.all("/fetch-server",(request, response)=>{
     response.setHeader("Access-Control-Allow-Headers","*")
     const data = {name:"Express"}
     response.send(JSON.stringify(data))
+})
+
+// jsonp服务
+app.all("/jsonp-server",(request, response)=>{
+    // response.send("console.log('hello jsonp')")、
+    // 将数据转换为字符串 - 不能直接返回数据，无法处理
+    const data = {
+        name:"Google"
+    }
+    let str = JSON.stringify(data)
+    // 返回结果的形式是函数调用
+    // 函数的实参就是想给客户端返回的结果数据
+    // 函数需要提前声明
+    response.end(`handle(${str})`)
+})
+
+// 用户名检测是否存在
+app.all("/check-username",(request,response)=>{
+    const data = {
+        exist:1,
+        msg:"用户名已经存在"
+    }
+    let str = JSON.stringify(data)
+    response.end(`handle(${str})`)
+})
+
+// jquery - jsonp
+app.all("/jquery-jsonp-server",(request,response)=>{
+    const data = {
+        name:"阿里巴巴",
+        city:["北京","上海","成都"]
+    }
+    let str = JSON.stringify(data)
+    // 接收callback参数
+    let cb = request.query.callback
+    response.end(`${cb}(${str})`)
+})
+
+// cors
+app.all("/cors-server",(request,response)=>{
+    // 设置响应头，设置允许跨域
+    // * 通配所有网页
+    response.setHeader("Access-Control-Allow-Origin","*")
+    response.setHeader("Access-Control-Allow-Headers","*")
+    // 请求方法随意 - get,post
+    response.setHeader("Access-Control-Allow-Methods","*")
+    response.send("hello CORS")
 })
 
 

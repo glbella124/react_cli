@@ -166,13 +166,57 @@ Same-Origin Policy
 
 项目经常出现， 单台服务器，服务有上限，性能有瓶颈
 
+##### 解决方案
 
+1. JSONP (JSON with Padding), 是一个非官方的跨域解决方案，只支持get请求
 
+   网页中一些标签天生具有跨域能力，eg. img, link, iframe, script
 
+   **JSONP利用script标签的跨域能力来发送请求**
 
+2. CORS(**Cross-Origin Resource Sharing**), 跨域资源共享
 
+   **官方的跨域解决方案**
 
+   特点是不需要在客户端做任何特殊的操作，完全在服务器中进行处理，支持get和post请求
 
+   跨域资源共享标准新增了一组HTTP首部字段（响应头），允许服务器声明哪些源站通过浏览器有权访问哪些资源
+
+   **流程**： 通过设置一个响应头告诉浏览器，该请求允许跨域，浏览器收到该响应后对响应放行
+
+   **使用**：服务器端的设置
+
+   https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS
+
+   服务端返回的 `Access-Control-Allow-Origin: *` 表明，该资源可以被 **任意** 外域访问。
+
+   ```
+   Access-Control-Allow-Origin: *
+   ```
+
+   使用 [`Origin`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Origin) 和 [`Access-Control-Allow-Origin`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 就能完成最简单的访问控制。如果服务端仅允许来自 `https://foo.example` 的访问，该首部字段的内容如下：
+
+   ```
+   Access-Control-Allow-Origin: https://foo.example
+   ```
+
+   ### [Access-Control-Allow-Methods](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS#access-control-allow-methods)
+
+   [`Access-Control-Allow-Methods`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Methods) 首部字段用于预检请求的响应。其指明了实际请求所允许使用的 HTTP 方法。
+
+   ```
+   Access-Control-Allow-Methods: <method>[, <method>]*
+   ```
+
+   有关 [preflight request](https://developer.mozilla.org/zh-CN/docs/Glossary/Preflight_request) 的示例已在上方给出。
+
+   ### [Access-Control-Allow-Headers](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS#access-control-allow-headers)
+
+   [`Access-Control-Allow-Headers`](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Access-Control-Allow-Headers) 首部字段用于预检请求的响应。其指明了实际请求中允许携带的首部字段。
+
+   ```
+   Access-Control-Allow-Headers: <field-name>[, <field-name>]*
+   ```
 
 
 
