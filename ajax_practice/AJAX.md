@@ -140,6 +140,32 @@ jquery库
 
 前端热门AJAX工具库, vue，react推荐的AJAX请求工具包
 
+Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+
+## 11. fetch
+
+用的少，axios居多
+
+
+
+## 12. 跨域 - 同源策略
+
+Same-Origin Policy
+
+最早由Netscape公司提出，是浏览器的一种安全策略
+
+#### 同源 
+
+当前网页的url和AJAX请求的目标资源的url, 协议，域名，端口号必须相同
+
+**AJAX 默认遵循同源策略**
+
+#### 跨域
+
+违背同源策略
+
+项目经常出现， 单台服务器，服务有上限，性能有瓶颈
+
 
 
 

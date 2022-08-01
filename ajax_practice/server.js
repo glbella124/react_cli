@@ -70,6 +70,22 @@ app.all("/jquery-server",(request, response)=>{
     response.send(JSON.stringify(data))
 })
 
+// axios
+app.all("/axios-server",(request, response)=>{
+    response.setHeader("Access-Control-Allow-Origin","*")
+    response.setHeader("Access-Control-Allow-Headers","*")
+    const data = {name:"Express"}
+    response.send(JSON.stringify(data))
+})
+
+// fetch 服务
+app.all("/fetch-server",(request, response)=>{
+    response.setHeader("Access-Control-Allow-Origin","*")
+    response.setHeader("Access-Control-Allow-Headers","*")
+    const data = {name:"Express"}
+    response.send(JSON.stringify(data))
+})
+
 
 
 // 4. 监听端口启动服务 端口 8000
