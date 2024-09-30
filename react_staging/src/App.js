@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { nanoid } from "nanoid";
 import "./App.css";
 import Header from "./components/Header";
 import List from "./components/List";
@@ -20,10 +21,11 @@ class App extends Component {
   addToDo = (data) => {
     const { todos } = this.state;
     const obj = {
-      id: `00${todos.length + 1}`,
+      id: nanoid(),
       name: data,
       done: false,
     };
+
     const newTodos = [obj, ...todos];
     this.setState({ todos: newTodos });
   };
