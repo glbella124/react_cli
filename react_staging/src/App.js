@@ -1,11 +1,8 @@
-// 原本自带的
 import React, { Component } from "react";
-
-// 自己写的
+import "./App.css";
 import Header from "./components/Header";
 import List from "./components/List";
 import Footer from "./components/Footer";
-import "./App.css";
 
 class App extends Component {
   // 状态在哪里，操作状态的方法就在哪里
@@ -20,54 +17,44 @@ class App extends Component {
     ],
   };
 
-  // 用于添加一个todo,接收的参数是todo对象
-  addTodo = (todoObj) => {
-    // 获取原todos
+  addToDo = (data) => {
     const { todos } = this.state;
-    // 追加一个todo
-    const newTodos = [todoObj, ...todos];
-    // 更新状态
+    const obj = {
+      id: `00${todos.length + 1}`,
+      name: data,
+      done: false,
+    };
+    const newTodos = [obj, ...todos];
     this.setState({ todos: newTodos });
   };
 
-  // 更新勾选状态
-  updateTodo = (id, done) => {
-    // 获取状态中的todos
+  deleteToDo = (data) => {
     const { todos } = this.state;
-    const newTodos = todos.map((todoObj) => {
-      if (todoObj.id === id) return { ...todoObj, done: done };
-      else return todoObj;
-    });
-
-    this.setState({ todos: newTodos });
+    const arr = todos.filter((item) => item.id !== data);
+    this.setState({ todos: arr });
   };
 
-  deleteTodo = (id) => {
-    console.log(id, "App");
+  updateToDo = (id, checked) => {
     const { todos } = this.state;
-    const newTodos = todos.filter((todoObj) => {
-      return todoObj.id !== id;
+    const newTodos = todos.map((item) => {
+      if (item.id === id) return { ...item, done: checked };
+      else return item;
     });
     this.setState({ todos: newTodos });
   };
 
-  // 全选
-  checkAllTodo = (done) => {
+  checkAllDo = (checked) => {
     const { todos } = this.state;
-    const newTodos = todos.map((todoObj) => {
-      return { ...todoObj, done };
+    const newTodos = todos.map((item) => {
+      return { ...item, done: checked };
     });
     this.setState({ todos: newTodos });
   };
 
-  // 清除所有已完成的
-  clearAllDone = () => {
+  clearAllDo = () => {
     const { todos } = this.state;
-    // 过滤数据
-    const undoneTodos = todos.filter((todoObj)=>{
-      return !todoObj.done 
-    })
-    this.setState({todos:undoneTodos})
+    const newTodos = todos.filter((item) => !item.done);
+    this.setState({ todos: newTodos });
   };
 
   render() {
@@ -75,13 +62,13 @@ class App extends Component {
     return (
       <div className="todo-container">
         <div className="todo-wrap">
-          <Header addTodo={this.addTodo} />
+          <Header addToDo={this.addToDo} />
           <List
-            updateTodo={this.updateTodo}
             todos={todos}
-            deleteTodo={this.deleteTodo}
+            updateToDo={this.updateToDo}
+            deleteToDo={this.deleteToDo}
           />
-          <Footer todos={todos} checkAllTodo={this.checkAllTodo} clearAllDone={this.clearAllDone}/>
+          <Footer checkAllDo={this.checkAllDo} clearAllDo={this.clearAllDo} />
         </div>
       </div>
     );
@@ -89,43 +76,3 @@ class App extends Component {
 }
 
 export default App;
-
-// 写法1: 创建外壳组件
-// import React from "react"
-
-// class App extends React.Component{
-//   render(){
-//     return(
-//       <div>Hello, This is my website</div>
-//     )
-//   }
-// }
-
-// export default App
-
-// 原本的
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
