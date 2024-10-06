@@ -11,3 +11,5 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+// 改用HashRouter可以解决前端样式丢失问题
