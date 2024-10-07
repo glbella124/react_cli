@@ -3,14 +3,15 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NavComp from "./components/NavComp";
-import Header from "./components/Header";
 export default class App extends Component {
   render() {
     return (
       <div>
         <div className="row">
           <div className="col-xs-offset-2 col-xs-8">
-            <Header />
+            <div className="page-header">
+              <h2>React Router Demo</h2>
+            </div>
           </div>
         </div>
         <div className="row">
