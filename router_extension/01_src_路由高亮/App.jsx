@@ -1,14 +1,12 @@
 import "./App.css";
-import { NavLink, Navigate, useRoutes } from "react-router-dom";
-import routes from "./routes";
+import { NavLink, Route, Routes, Navigate } from "react-router-dom";
+import About from "./pages/About";
+import Home from "./pages/Home";
 
 function App() {
   const computedClassName = ({ isActive }) => {
     return isActive ? "list-group-item atguigu" : "list-group-item";
   };
-
-  // 路由表
-  const element = useRoutes(routes);
   return (
     <div>
       <div className="row">
@@ -32,7 +30,11 @@ function App() {
           <div className="panel">
             <div className="panel-body">
               {/* 注册路由 */}
-              {element}
+              <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/" element={<Navigate to="about" />} />
+              </Routes>
             </div>
           </div>
         </div>
