@@ -1,7 +1,6 @@
 import "./App.css";
-import { NavLink, useRoutes /* useInRouterContext */ } from "react-router-dom";
+import { NavLink, useRoutes } from "react-router-dom";
 import routes from "./routes";
-import Header from "./components/Header";
 
 function App() {
   const computedClassName = ({ isActive }) => {
@@ -10,11 +9,12 @@ function App() {
 
   // 路由表
   const element = useRoutes(routes);
-  // console.log("222", useInRouterContext());
   return (
     <div>
       <div className="row">
-        <Header />
+        <div className="col-xs-offset-2 col-xs-8">
+          <h3>React Router Demo</h3>
+        </div>
       </div>
       <div className="row">
         <div className="col-xs-2 col-xs-offset-2">
